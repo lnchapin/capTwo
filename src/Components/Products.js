@@ -18,13 +18,22 @@ class Products extends Component {
       });
   }
 
+  handleClick = id =>{
+    console.log(id);
+  }
+
   render(){
     return(
       <div>
         <h2>This is the Products Page</h2>
         {this.state.error ? <p>Sorry we're having an error: {this.state.error}</p>: ""}
         {this.state.products.map(product => {
-          return <h2 key={product.id}>{product.name}</h2>
+          return (
+            <div key={product.id}>
+              <h2>{product.name}</h2>
+              <button onClick={()=>this.handleClick(product.id)}>View Details</button>
+            </div>
+          );
         })}
       </div>
     );

@@ -1,12 +1,40 @@
-import React from "react";
+import React, { Component } from "react";
+import Card from "./CategoryCard";
+
+class Home extends Component {
+  state={
+    categories:[],
+    error: ""
+  }
+
+  componentDidMount(){
+    fetch("http://localhost:8080/api/categories")
+      .then(res => res.json())
+      .then(categories =>{
+        console.log(categories);
+        this.setState({ categories: categories.categories });
+      })
+      .catch(error =>{
+        this.setState({ error });
+      });
+  }
 
 
-const Home =()=>{
-  return(
-    <div>
-      <h2>This is home</h2>
-    </div>
-  );
-};
+
+  render(){
+    return(
+      <div>
+        <h2>Shop a category!</h2>
+        <div className="container">
+          {this.state.categories.map(category => {
+            return (
+              <Card key={category.id}>{category.name}</Card>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Home;
