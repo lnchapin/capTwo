@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Card from "./CategoryCard";
+import Card from "./Card";
 
 class Home extends Component {
   state={
@@ -11,7 +11,6 @@ class Home extends Component {
     fetch("http://localhost:8080/api/categories")
       .then(res => res.json())
       .then(categories =>{
-        console.log(categories);
         this.setState({ categories: categories.categories });
       })
       .catch(error =>{
