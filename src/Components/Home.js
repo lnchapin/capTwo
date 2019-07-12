@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Card from "./Card";
+import { Link } from "react-router-dom";
 
 class Home extends Component {
   state={
@@ -27,7 +28,9 @@ class Home extends Component {
         <div className="container">
           {this.state.categories.map(category => {
             return (
-              <Card key={category.id}>{category.name}</Card>
+              <Link key={category.id} to={`/category/${category.name}`}>
+                <Card>{category.name}</Card>
+              </Link>
             );
           })}
         </div>

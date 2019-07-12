@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "./products-detail.module.scss";
+import { Link } from "react-router-dom";
 
 
 class ProductDetails extends Component{
@@ -31,7 +32,7 @@ class ProductDetails extends Component{
             <h2>{this.state.product.name}</h2>
             <p>{this.state.product.ProductDetail.description}</p>
             <h2>${(this.state.product.price/100).toFixed(2)}</h2>
-            <p>Category: {this.state.product.Category.name} > {this.state.product.description}</p>
+            <p>Category: <Link to={`/category/${this.state.product.Category.name}`}>{this.state.product.Category.name}</Link> > {this.state.product.description}</p>
           </div>
           <div>
             <h3>Purchase info</h3>
@@ -43,5 +44,7 @@ class ProductDetails extends Component{
     }
   }
 };
+
+// http://localhost:3000/category/Clothing
 
 export default ProductDetails;
