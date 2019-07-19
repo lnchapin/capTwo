@@ -19,12 +19,7 @@ class Products extends Component {
       });
   }
 
-  handleClick = id =>{
-    console.log(id);
-  }
-
   render(){
-    console.log(this.state.products);
     return(
       <div>
         <h2>This is the Products Page</h2>
