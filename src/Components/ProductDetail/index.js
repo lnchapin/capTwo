@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 
 class ProductDetails extends Component{
   state={
-    product:{}
+    product:{},
+    qtyError: ""
   }
 
   componentDidMount(){
-    console.log(this.props.match.params.id);
     fetch(`http://localhost:8080/api/products/${this.props.match.params.id}`)
       .then(res => res.json())
       .then(products =>{
@@ -18,6 +18,37 @@ class ProductDetails extends Component{
       .catch(error =>{
         this.setState({ error });
       });
+  }
+
+  initiateStripeCheckout = async () => {
+    let qtyToBuy = document.getElementById("quantityToBuy").value
+    const stripe = window.Stripe("pk_test_bmnseCGKKEDF0xxIEbnoW82R00iVYgMxQE")
+
+    if (qtyToBuy <= this.state.product.ProductDetail.quantity) {
+      try {
+        // Initiate checkout session to get session id
+        const response = await fetch("http://localhost:8080/api/checkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          }
+        })
+        const data = await response.json()
+        const sessionId = data.session.id
+        console.log(sessionId)
+
+        // Redirect to checkout
+        const result = await stripe.redirectToCheckout({ sessionId })
+
+      } catch (error) {
+        console.log("STRIPE ERROR", error)
+      }
+    } else {
+      this.setState({qtyError: "Sorry that quantity is more than we have in stock"})
+    }
+
+
   }
 
 
@@ -37,14 +68,15 @@ class ProductDetails extends Component{
           <div>
             <h3>Purchase info</h3>
             <p>{this.state.product.ProductDetail.quantity} in Stock</p>
-            {this.state.product.ProductDetail.quantity > 0 ? <button>Purchase</button> : <button disabled>Out of Stock</button>}
+            <span>Qty: </span><input type="number" id="quantityToBuy" name="quantityToBuy" min="1" max={this.state.product.ProductDetail.quantity}/>
+            <br />
+            {this.state.qtyError ? <p className="qtyError">{this.state.qtyError}</p>:""}
+            {this.state.product.ProductDetail.quantity > 0 ? <button onClick={this.initiateStripeCheckout}>Purchase</button> : <button disabled>Out of Stock</button>}
           </div>
         </div>
       );
     }
   }
-};
-
-// http://localhost:3000/category/Clothing
+}
 
 export default ProductDetails;
