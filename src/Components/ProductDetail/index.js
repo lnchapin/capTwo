@@ -21,8 +21,16 @@ class ProductDetails extends Component{
   }
 
   initiateStripeCheckout = async () => {
-    let qtyToBuy = document.getElementById("quantityToBuy").value
-    const stripe = window.Stripe("pk_test_bmnseCGKKEDF0xxIEbnoW82R00iVYgMxQE")
+    let qtyToBuy = document.getElementById("quantityToBuy").value;
+    const stripe = window.Stripe("pk_test_bmnseCGKKEDF0xxIEbnoW82R00iVYgMxQE");
+    const {product} = this.state;
+    const lineItem = {
+      name: product.name,
+      description: product.ProductDetail.description,
+      images: [product.img_url],
+      amount: product.price,
+      quantity: qtyToBuy
+    };
 
     if (qtyToBuy <= this.state.product.ProductDetail.quantity) {
       try {
