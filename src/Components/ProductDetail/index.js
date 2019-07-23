@@ -29,6 +29,7 @@ class ProductDetails extends Component{
       description: product.ProductDetail.description,
       images: [product.img_url],
       amount: product.price,
+      currency: "usd",
       quantity: qtyToBuy
     };
 
@@ -40,17 +41,18 @@ class ProductDetails extends Component{
           headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
-          }
-        })
-        const data = await response.json()
-        const sessionId = data.session.id
-        console.log(sessionId)
+          },
+          body: JSON.stringify(lineItem)
+        });
+        const data = await response.json();
+        const sessionId = data.session.id;
+        console.log(sessionId);
 
         // Redirect to checkout
-        const result = await stripe.redirectToCheckout({ sessionId })
+        const result = await stripe.redirectToCheckout({ sessionId });
 
       } catch (error) {
-        console.log("STRIPE ERROR", error)
+        console.log("STRIPE ERROR", error);
       }
     } else {
       this.setState({qtyError: "Sorry that quantity is more than we have in stock"})
