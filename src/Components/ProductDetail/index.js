@@ -30,9 +30,10 @@ class ProductDetails extends Component{
       images: [product.img_url],
       amount: product.price,
       currency: "usd",
-      quantity: qtyToBuy
+      quantity: qtyToBuy,
+      productDetailId: product.ProductDetail.id
     };
-
+    console.log("lineItem: ", lineItem);
     if (qtyToBuy <= this.state.product.ProductDetail.quantity) {
       try {
         // Initiate checkout session to get session id
@@ -78,7 +79,7 @@ class ProductDetails extends Component{
           <div>
             <h3>Purchase info</h3>
             <p>{this.state.product.ProductDetail.quantity} in Stock</p>
-            <span>Qty: </span><input type="number" id="quantityToBuy" name="quantityToBuy" min="1" max={this.state.product.ProductDetail.quantity}/>
+            <span>Qty: </span><input type="number" id="quantityToBuy" name="quantityToBuy" min="1" max={this.state.product.ProductDetail.quantity} required/>
             <br />
             {this.state.qtyError ? <p className="qtyError">{this.state.qtyError}</p>:""}
             {this.state.product.ProductDetail.quantity > 0 ? <button onClick={this.initiateStripeCheckout}>Purchase</button> : <button disabled>Out of Stock</button>}
