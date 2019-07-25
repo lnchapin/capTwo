@@ -1,0 +1,21 @@
+.navbar {
+  text-align: right;
+
+  a {
+    margin-left: 10px;
+  }
+
+  button {
+    margin-left: 10px;
+    background:none;
+    color:inherit;
+    border:none;
+    padding:0;
+    font: inherit;
+    cursor: pointer;
+
+    &:hover{
+      border-bottom:1px solid #444;
+    }
+  }
+}

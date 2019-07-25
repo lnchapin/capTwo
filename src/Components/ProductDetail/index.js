@@ -81,7 +81,7 @@ class ProductDetails extends Component{
             <p>{this.state.product.ProductDetail.quantity} in Stock</p>
             <span>Qty: </span><input type="number" id="quantityToBuy" name="quantityToBuy" min="1" max={this.state.product.ProductDetail.quantity} required/>
             <br />
-            {this.state.qtyError ? <p className="qtyError">{this.state.qtyError}</p>:""}
+            {this.state.qtyError && <p className="qtyError">{this.state.qtyError}</p>}
             {this.state.product.ProductDetail.quantity > 0 ? <button onClick={this.initiateStripeCheckout}>Purchase</button> : <button disabled>Out of Stock</button>}
           </div>
         </div>
