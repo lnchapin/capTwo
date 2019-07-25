@@ -9,6 +9,7 @@ import ProductDetail from "./Components/ProductDetail";
 import Category from "./Components/Category";
 import Success from "./Components/Success";
 import Failure from "./Components/Failure";
+import Profile from "./Components/Profile"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/category/:id" component={Category}/>
           <Route path="/success" component={Success} />
           <Route path="/failure" component={Failure} />
+          <Route path="/profile" component={Profile} />
           <Route path="*" component={NotFound}/>
         </Switch>
       </Router>
