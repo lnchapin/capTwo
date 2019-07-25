@@ -9,7 +9,8 @@ import ProductDetail from "./Components/ProductDetail";
 import Category from "./Components/Category";
 import Success from "./Components/Success";
 import Failure from "./Components/Failure";
-import Profile from "./Components/Profile"
+import Profile from "./Components/Profile";
+import ExternalAPI from "./Components/ExternalAPI"
 
 function App() {
   return (
