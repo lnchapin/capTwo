@@ -11,6 +11,7 @@ const Header =() => {
     <nav className={styles.navbar}>
       <Link to="/">Home</Link>
       <Link to="/products">Products</Link>
+      <Link to="/test">TEST</Link>
       {isAuthenticated && <Link to="/profile">Profile</Link>}
       {!isAuthenticated && (
         <button onClick={() =>loginWithRedirect({})}>Log in</button>)}
